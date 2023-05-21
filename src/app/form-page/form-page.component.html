@@ -115,8 +115,8 @@
                     <div class="select-input">
                       <span></span>
                       <select formControlName="tipo_bien" id="inputBien" class="form-control">
-                        <option value="Producto">Producto</option>
-                        <option value="Servicio">Servicio</option>
+                        <option value="1">Producto</option>
+                        <option value="2">Servicio</option>
                       </select>
                     </div>
                   </div>
@@ -148,8 +148,8 @@
                     <div class="select-input">
                       <span></span>
                       <select (change)="claim_type()" formControlName="tipo_reclamo" id="inputRec" class="form-control">
-                        <option value="Queja">Queja</option>
-                        <option value="Reclamo">Reclamo</option>
+                        <option value="1">Queja</option>
+                        <option value="2">Reclamo</option>
                       </select>
                     </div>
                   </div>
@@ -179,7 +179,7 @@
                 <div class="custom-file">
                   <p class="input-label">Adjuntar evidencia <span class="text">( Archivos aceptados: pdf, doc/
                       docx - Tamaño máx. : 150kb )</span></p>
-                  <input type="file" class="custom-file-input form-control" id="validatedCustomFile">
+                  <input formControlName="adjunto" type="file" class="custom-file-input form-control" id="validatedCustomFile">
                   <label class="custom-file-label" for="validatedCustomFile"><span class="file-return">No file
                       choosen</span></label>
                 </div>

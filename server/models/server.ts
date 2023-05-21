@@ -1,9 +1,16 @@
 import express, { Application } from 'express';
-import claimRoutes from '../routes/claimRoute';
-import userRoutes from '../routes/userRoute';
 import db from '../db/connection';
 import cors from 'cors';
 
+// Routes
+import claimRoutes from '../routes/claimRoute';
+import userRoutes from '../routes/userRoute';
+import userTypeRoute from '../routes/userTypeRoute';
+import claimTypeRoute from '../routes/claimTypeRoute';
+import serviceTypeRoute from '../routes/serviceTypeRoute';
+import claimDetailsRoute from '../routes/claimDetailsRoute';
+
+// Data models
 import './claimModel';
 import './detalleReclamoModel';
 import './tipoBienModel';
@@ -16,7 +23,11 @@ class Server {
   private port: string;
   private apiPaths = {
     claims: '/api/claims',
-    users: '/api/users'
+    users: '/api/users',
+    userTypes: '/api/user_types',
+    claimTypes: '/api/claim_types',
+    claimDetails: '/api/claim_details',
+    serviceTypes: '/api/service_types'
   }
 
   constructor() {
@@ -49,7 +60,11 @@ class Server {
 
   routes() {
     this.app.use(this.apiPaths.claims, claimRoutes),
-    this.app.use(this.apiPaths.users, userRoutes)
+      this.app.use(this.apiPaths.users, userRoutes),
+      this.app.use(this.apiPaths.userTypes, userTypeRoute),
+      this.app.use(this.apiPaths.claimTypes, claimTypeRoute),
+      this.app.use(this.apiPaths.claimDetails, claimDetailsRoute),
+      this.app.use(this.apiPaths.serviceTypes, serviceTypeRoute)
   }
 
   listen() {

@@ -13,10 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const claimRoute_1 = __importDefault(require("../routes/claimRoute"));
-const userRoute_1 = __importDefault(require("../routes/userRoute"));
 const connection_1 = __importDefault(require("../db/connection"));
 const cors_1 = __importDefault(require("cors"));
+// Routes
+const claimRoute_1 = __importDefault(require("../routes/claimRoute"));
+const userRoute_1 = __importDefault(require("../routes/userRoute"));
+const userTypeRoute_1 = __importDefault(require("../routes/userTypeRoute"));
+const claimTypeRoute_1 = __importDefault(require("../routes/claimTypeRoute"));
+const serviceTypeRoute_1 = __importDefault(require("../routes/serviceTypeRoute"));
+const claimDetailsRoute_1 = __importDefault(require("../routes/claimDetailsRoute"));
+// Data models
 require("./claimModel");
 require("./detalleReclamoModel");
 require("./tipoBienModel");
@@ -27,7 +33,11 @@ class Server {
     constructor() {
         this.apiPaths = {
             claims: '/api/claims',
-            users: '/api/users'
+            users: '/api/users',
+            userTypes: '/api/user_types',
+            claimTypes: '/api/claim_types',
+            claimDetails: '/api/claim_details',
+            serviceTypes: '/api/service_types'
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
@@ -58,7 +68,11 @@ class Server {
     }
     routes() {
         this.app.use(this.apiPaths.claims, claimRoute_1.default),
-            this.app.use(this.apiPaths.users, userRoute_1.default);
+            this.app.use(this.apiPaths.users, userRoute_1.default),
+            this.app.use(this.apiPaths.userTypes, userTypeRoute_1.default),
+            this.app.use(this.apiPaths.claimTypes, claimTypeRoute_1.default),
+            this.app.use(this.apiPaths.claimDetails, claimDetailsRoute_1.default),
+            this.app.use(this.apiPaths.serviceTypes, serviceTypeRoute_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

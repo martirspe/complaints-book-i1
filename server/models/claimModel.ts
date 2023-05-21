@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
+import DetalleReclamos from "./detalleReclamoModel";
 
 const Claims = db.define('reclamos', {
   id_reclamo: {
@@ -30,5 +31,7 @@ const Claims = db.define('reclamos', {
     defaultValue: 1
   }
 }, { timestamps: false });
+
+Claims.hasMany(DetalleReclamos, { as: 'detalle_reclamos', foreignKey: 'id_reclamo' });
 
 export default Claims;

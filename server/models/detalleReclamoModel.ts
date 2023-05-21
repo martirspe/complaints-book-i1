@@ -40,6 +40,4 @@ const DetalleReclamos = db.define('detalle_reclamos', {
   }
 }, { timestamps: false });
 
-DetalleReclamos.hasMany(Claims, { as: 'reclamos', foreignKey: 'id_detalle' });
-
 export default DetalleReclamos;

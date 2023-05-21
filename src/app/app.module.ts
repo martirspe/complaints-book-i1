@@ -10,7 +10,7 @@ import { FormPageComponent } from './form-page/form-page.component';
 import { SharedModule } from './shared/shared.module';
 
 // Services
-import { ClaimService } from './services/claim.service';
+import { ClaimsService } from './services/claims.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { ClaimService } from './services/claim.service';
     SharedModule
   ],
   providers: [
-    ClaimService
+    ClaimsService
   ],
   bootstrap: [AppComponent]
 })

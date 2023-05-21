@@ -7,7 +7,7 @@ import { UserInterface } from '../interfaces/userInterface';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UsersService {
 
   API_URI = 'http://localhost:8000/api';
 

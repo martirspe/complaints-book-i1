@@ -7,7 +7,7 @@ import { ClaimInterface } from '../interfaces/claimInterface';
 @Injectable({
   providedIn: 'root'
 })
-export class ClaimService {
+export class ClaimsService {
 
   API_URI = 'http://localhost:8000/api';
 
