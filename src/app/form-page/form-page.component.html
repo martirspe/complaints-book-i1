@@ -1,0 +1,218 @@
+<div class="ugf-wraper">
+  <app-navbar></app-navbar>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-sm-8">
+        <div class="ufg-job-application-wrapper">
+          <form [formGroup]="myForm" (ngSubmit)="onSave()" class="job-application-form" autocomplete="off">
+            <div class="input-type-block">
+              <h4>Identificación del Consumidor Reclamante</h4>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="input-label" for="tDoc"><span>*</span>Tipo de documento</label>
+                    <div class="select-input">
+                      <span></span>
+                      <select formControlName="tipo_doc" id="inputDoc" class="form-control">
+                        <option value="DNI">DNI</option>
+                        <option value="Libreta Militar">Libreta Militar</option>
+                        <option value="Carnet Extranjeria">Carnet Extranjeria</option>
+                        <option value="Partida de Nacimiento">Partida de Nacimiento</option>
+                        <option value="Boleta">Boleta</option>
+                        <option value="Carnet de Identidad">Carnet de Identidad</option>
+                        <option value="Otro">Otro</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="input-label" for="nDoc"><span>*</span>Número de documento</label>
+                    <input formControlName="num_doc" type="text" class="form-control" id="nDoc"
+                      placeholder="Introduce tu número de documento.">
+                    <small *ngIf="isValidField('num_doc')" class="form-text text-danger">{{
+                      getFieldError('num_doc')}}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="input-label" for="fName"><span>*</span>Nombres</label>
+                    <input formControlName="nombres" type="text" class="form-control" id="fName"
+                      placeholder="Introduce tus nombres completos.">
+                    <small *ngIf="isValidField('nombres')" class="form-text text-danger">{{
+                      getFieldError('nombres')}}</small>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="input-label" for="lName"><span>*</span>Apellidos</label>
+                    <input formControlName="apellidos" type="text" class="form-control" id="lName"
+                      placeholder="Introduce tus apellidos completos.">
+                    <small *ngIf="isValidField('apellidos')" class="form-text text-danger">{{
+                      getFieldError('apellidos')}}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="input-label" for="inputPhone"><span>*</span>Teléfono/Celular</label>
+                    <input formControlName="celular" type="text" class="form-control" id="inputPhone"
+                      placeholder="Introduce tu número celular.">
+                    <small *ngIf="isValidField('celular')" class="form-text text-danger">{{
+                      getFieldError('celular')}}</small>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="input-label" for="inputMail"><span>*</span>Correo electrónico</label>
+                    <input formControlName="email" type="email" class="form-control" id="inputMail"
+                      placeholder="Introduce tu correo electrónico.">
+                    <small *ngIf="isValidField('email')" class="form-text text-danger">{{
+                      getFieldError('email')}}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="input-label" for="inputAddress"><span>*</span>Dirección actual</label>
+                <input formControlName="direccion" type="text" class="form-control" id="inputAddress"
+                  placeholder="Introduce tu dirección actual.">
+                <small *ngIf="isValidField('direccion')" class="form-text text-danger">{{
+                  getFieldError('direccion')}}</small>
+              </div>
+              <div class="form-group check-gender">
+                <span class="lebel-text"><span>*</span>¿Es menor de edad?</span>
+                <div class="custom-radio">
+                  <input (click)="menor_edad()" type="radio" name="gender" class="custom-control-input" id="si">
+                  <label class="custom-control-label" for="si">Si</label>
+                </div>
+                <div class="custom-radio">
+                  <input (click)="menor_edad()" type="radio" name="gender" class="custom-control-input" id="no" checked>
+                  <label class="custom-control-label" for="no">No</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div *ngIf="menor==true" class="form-group">
+                  <label class="input-label" for="fName"><span>*</span>Apoderado</label>
+                  <input formControlName="apoderado" type="text" class="form-control" id="fApoderado"
+                    placeholder="Introduce los datos completos de tu apoderado.">
+                  <small *ngIf="isValidField('apoderado')" class="form-text text-danger">{{
+                    getFieldError('apoderado')}}</small>
+                </div>
+              </div>
+              <p *ngIf="menor==false">Si eres menor de edad, por favor marcar la casilla de arriba y completar la
+                información de uno de
+                tus padres o de tu representante legal.</p>
+            </div>
+            <div class="input-type-block">
+              <h4>Identificación del bien contratado</h4>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="input-label" for="tBien"><span>*</span>Tipo del bien</label>
+                    <div class="select-input">
+                      <span></span>
+                      <select formControlName="tipo_bien" id="inputBien" class="form-control">
+                        <option value="Producto">Producto</option>
+                        <option value="Servicio">Servicio</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="input-label" for="mReclamado"><span>*</span>Monto reclamado S/.</label>
+                    <input formControlName="monto" type="number" class="form-control" id="mReclamado"
+                      placeholder="Introduce una cantidad.">
+                    <small *ngIf="isValidField('monto')" class="form-text text-danger">{{
+                      getFieldError('monto')}}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="input-label" for="inputDetails"><span>*</span>Descripción</label>
+                <textarea formControlName="descripcion" class="form-control" id="inputDetails"
+                  placeholder="Describe el problema que ha tenido respecto al producto o servicio que adquirió con la empresa."></textarea>
+                <small *ngIf="isValidField('descripcion')" class="form-text text-danger">{{
+                  getFieldError('descripcion')}}</small>
+              </div>
+            </div>
+            <div class="input-type-block">
+              <h4>Detalle de Reclamación y Pedido del Consumidor</h4>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="input-label" for="tRec"><span>*</span>Tipo de Reclamación</label>
+                    <div class="select-input">
+                      <span></span>
+                      <select (change)="claim_type()" formControlName="tipo_reclamo" id="inputRec" class="form-control">
+                        <option value="Queja">Queja</option>
+                        <option value="Reclamo">Reclamo</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <p *ngIf="c_type==true" class="lh-sm mt-5">Disconformidad no relacionada a los productos o
+                    servicios; o, malestar o descontento respecto a la atención al público.</p>
+                  <p *ngIf="c_type==false" class="lh-sm mt-5">Disconformidad relacionada a los productos o servicios.
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="input-label" for="inputDetails"><span>*</span>Detalles</label>
+                <textarea formControlName="detalles" class="form-control" id="inputDetails"
+                  placeholder="Describe a mayor detalle su queja o reclamo."></textarea>
+                <small *ngIf="isValidField('detalles')" class="form-text text-danger">{{
+                  getFieldError('detalles')}}</small>
+              </div>
+              <div class="form-group">
+                <label class="input-label" for="inputDetails"><span>*</span>Pedido <small>(explicar de forma concreta lo
+                    que solicita)</small></label>
+                <textarea formControlName="pedido" class="form-control" id="inputDetails"
+                  placeholder="Introduce tu solicitud o pedido para resolver la controversia."></textarea>
+                <small *ngIf="isValidField('pedido')" class="form-text text-danger">{{ getFieldError('pedido')}}</small>
+              </div>
+              <div class="form-group">
+                <div class="custom-file">
+                  <p class="input-label">Adjuntar evidencia <span class="text">( Archivos aceptados: pdf, doc/
+                      docx - Tamaño máx. : 150kb )</span></p>
+                  <input type="file" class="custom-file-input form-control" id="validatedCustomFile">
+                  <label class="custom-file-label" for="validatedCustomFile"><span class="file-return">No file
+                      choosen</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="input-type-block">
+              <h4>Observaciones y Acciones Adoptadas por el Proveedor</h4>
+              <p>La respuesta a la presente será atendida mediante correo electrónico a la dirección que usted ha
+                consignado en la presente hoja de reclamación.</p>
+            </div>
+            <div class="input-type-block">
+              <small>
+                * La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito
+                previo para interponer una denuncia ante el INDECOPI.<br>* El proveedor debe dar respuesta al reclamo o
+                queja en un plazo no mayor a quince (15) días
+                hábiles, el cual es improrrogable.
+              </small>
+            </div>
+            <div class="input-type-block">
+              <div class="form-group">
+                <div class="custom-checkbox">
+                  <input formControlName="terminos" type="checkbox" class="custom-control-input" id="terms">
+                  <label class="custom-control-label" for="terms">He leído y acepto los <a href="#">Términos y
+                      Condiciones</a> y las <a href="#">Políticas de Privacidad</a>.</label>
+                </div>
+                <small *ngIf="isValidField('terminos')" class="form-text text-danger">{{
+                  getFieldError('terminos')}}</small>
+              </div>
+            </div>
+            <button [disabled]="myForm.invalid" type="submit" class="btn">Enviar Reclamo</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
