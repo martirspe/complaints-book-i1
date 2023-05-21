@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
-import Claim from "./claimModel";
+import Claims from "./claimModel";
 
-const DetalleReclamo = db.define('detalle_reclamos', {
+const DetalleReclamos = db.define('detalle_reclamos', {
   id_detalle: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -40,6 +40,6 @@ const DetalleReclamo = db.define('detalle_reclamos', {
   }
 }, { timestamps: false });
 
-DetalleReclamo.hasMany(Claim, { as: 'reclamos', foreignKey: 'id_detalle' });
+DetalleReclamos.hasMany(Claims, { as: 'reclamos', foreignKey: 'id_detalle' });
 
-export default DetalleReclamo;
+export default DetalleReclamos;

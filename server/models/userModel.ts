@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import db from "../db/connection";
 import Claim from "./claimModel";
 
-const User = db.define('usuarios', {
+const Users = db.define('usuarios', {
   id_usuario: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -18,7 +18,7 @@ const User = db.define('usuarios', {
     unique: true,
     allowNull: false
   },
-  nombre: {
+  nombres: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -45,12 +45,21 @@ const User = db.define('usuarios', {
     allowNull: false,
     defaultValue: 0
   },
+  apoderado: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   id_tipo_usuario: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  estado: {
+    type: DataTypes.TINYINT,
+    allowNull: false,
+    defaultValue: 1
   }
 }, { timestamps: false });
 
-User.hasMany(Claim, { as: 'reclamos', foreignKey: 'id_usuario' });
+Users.hasMany(Claim, { as: 'reclamos', foreignKey: 'id_usuario' });
 
-export default User;
+export default Users;

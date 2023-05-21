@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import db from "../db/connection";
 import User from "./userModel";
 
-const TipoUsuario = db.define('tipo_usuarios', {
+const TipoUsuarios = db.define('tipo_usuarios', {
   id_tipo_usuario: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -15,6 +15,6 @@ const TipoUsuario = db.define('tipo_usuarios', {
   }
 }, { timestamps: false });
 
-TipoUsuario.hasMany(User, { as: 'usuarios', foreignKey: 'id_tipo_usuario' });
+TipoUsuarios.hasMany(User, { as: 'usuarios', foreignKey: 'id_tipo_usuario' });
 
-export default TipoUsuario;
+export default TipoUsuarios;

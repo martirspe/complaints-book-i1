@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const claimModel_1 = __importDefault(require("./claimModel"));
-const TipoReclamo = connection_1.default.define('tipo_reclamos', {
+const TipoReclamos = connection_1.default.define('tipo_reclamos', {
     id_tipo_reclamo: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
@@ -18,6 +18,6 @@ const TipoReclamo = connection_1.default.define('tipo_reclamos', {
         allowNull: false
     }
 }, { timestamps: false });
-TipoReclamo.hasMany(claimModel_1.default, { as: 'reclamos', foreignKey: 'id_tipo_reclamo' });
-exports.default = TipoReclamo;
+TipoReclamos.hasMany(claimModel_1.default, { as: 'reclamos', foreignKey: 'id_tipo_reclamo' });
+exports.default = TipoReclamos;
 //# sourceMappingURL=tipoReclamoModel.js.map

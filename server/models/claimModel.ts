@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
 
-const Claim = db.define('reclamos', {
+const Claims = db.define('reclamos', {
   id_reclamo: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -31,4 +31,4 @@ const Claim = db.define('reclamos', {
   }
 }, { timestamps: false });
 
-export default Claim;
+export default Claims;
