@@ -15,6 +15,6 @@ const TipoBienes = db.define("tipo_bienes", {
   }
 }, { timestamps: false });
 
-TipoBienes.hasMany(Claim, { as: 'reclamos', foreignKey: 'id_tipo_bien' });
+TipoBienes.hasOne(Claim, { as: 'reclamos', foreignKey: 'id_tipo_bien' });
 
 export default TipoBienes;

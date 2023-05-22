@@ -18,6 +18,6 @@ const TipoReclamos = connection_1.default.define('tipo_reclamos', {
         allowNull: false
     }
 }, { timestamps: false });
-TipoReclamos.hasMany(claimModel_1.default, { as: 'reclamos', foreignKey: 'id_tipo_reclamo' });
+TipoReclamos.hasOne(claimModel_1.default, { as: 'reclamos', foreignKey: 'id_tipo_reclamo' });
 exports.default = TipoReclamos;
 //# sourceMappingURL=tipoReclamoModel.js.map

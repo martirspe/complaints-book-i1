@@ -18,6 +18,6 @@ const TipoBienes = connection_1.default.define("tipo_bienes", {
         allowNull: false
     }
 }, { timestamps: false });
-TipoBienes.hasMany(claimModel_1.default, { as: 'reclamos', foreignKey: 'id_tipo_bien' });
+TipoBienes.hasOne(claimModel_1.default, { as: 'reclamos', foreignKey: 'id_tipo_bien' });
 exports.default = TipoBienes;
 //# sourceMappingURL=tipoBienModel.js.map

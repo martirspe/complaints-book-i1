@@ -9,18 +9,6 @@ const Claims = db.define('reclamos', {
     primaryKey: true,
     allowNull: false
   },
-  id_tipo_reclamo: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  id_tipo_bien: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  id_usuario: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
   estado: {
     type: DataTypes.TINYINT,
     allowNull: false,
@@ -28,6 +16,6 @@ const Claims = db.define('reclamos', {
   }
 }, { timestamps: false });
 
-Claims.hasMany(DetalleReclamos, { as: 'detalle_reclamos', foreignKey: 'id_reclamo' });
+Claims.hasOne(DetalleReclamos, { as: 'detalle_reclamos', foreignKey: 'id_reclamo' });
 
 export default Claims;

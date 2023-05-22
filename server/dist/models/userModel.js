@@ -63,6 +63,6 @@ const Users = connection_1.default.define('usuarios', {
         defaultValue: 1
     }
 }, { timestamps: false });
-Users.hasMany(claimModel_1.default, { as: 'reclamos', foreignKey: 'id_usuario' });
+Users.hasOne(claimModel_1.default, { as: 'reclamos', foreignKey: 'id_usuario' });
 exports.default = Users;
 //# sourceMappingURL=userModel.js.map

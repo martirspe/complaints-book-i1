@@ -13,24 +13,12 @@ const Claims = connection_1.default.define('reclamos', {
         primaryKey: true,
         allowNull: false
     },
-    id_tipo_reclamo: {
-        type: sequelize_1.DataTypes.INTEGER,
-        allowNull: false
-    },
-    id_tipo_bien: {
-        type: sequelize_1.DataTypes.INTEGER,
-        allowNull: false
-    },
-    id_usuario: {
-        type: sequelize_1.DataTypes.INTEGER,
-        allowNull: false
-    },
     estado: {
         type: sequelize_1.DataTypes.TINYINT,
         allowNull: false,
         defaultValue: 1
     }
 }, { timestamps: false });
-Claims.hasMany(detalleReclamoModel_1.default, { as: 'detalle_reclamos', foreignKey: 'id_reclamo' });
+Claims.hasOne(detalleReclamoModel_1.default, { as: 'detalle_reclamos', foreignKey: 'id_reclamo' });
 exports.default = Claims;
 //# sourceMappingURL=claimModel.js.map

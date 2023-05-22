@@ -60,6 +60,6 @@ const Users = db.define('usuarios', {
   }
 }, { timestamps: false });
 
-Users.hasMany(Claim, { as: 'reclamos', foreignKey: 'id_usuario' });
+Users.hasOne(Claim, { as: 'reclamos', foreignKey: 'id_usuario' });
 
 export default Users;
