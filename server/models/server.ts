@@ -3,12 +3,13 @@ import db from '../db/connection';
 import cors from 'cors';
 
 // Routes
-import claimRoutes from '../routes/claimRoute';
 import userRoutes from '../routes/userRoute';
+import claimRoutes from '../routes/claimRoute';
 import userTypeRoute from '../routes/userTypeRoute';
 import claimTypeRoute from '../routes/claimTypeRoute';
 import serviceTypeRoute from '../routes/serviceTypeRoute';
 import claimDetailsRoute from '../routes/claimDetailsRoute';
+import emailRoute from '../routes/email/emailRoute';
 
 // Data models
 import './claimModel';
@@ -27,7 +28,8 @@ class Server {
     userTypes: '/api/user_types',
     claimTypes: '/api/claim_types',
     claimDetails: '/api/claim_details',
-    serviceTypes: '/api/service_types'
+    serviceTypes: '/api/service_types',
+    sendMail: '/api/sendmail'
   }
 
   constructor() {
@@ -64,7 +66,8 @@ class Server {
       this.app.use(this.apiPaths.userTypes, userTypeRoute),
       this.app.use(this.apiPaths.claimTypes, claimTypeRoute),
       this.app.use(this.apiPaths.claimDetails, claimDetailsRoute),
-      this.app.use(this.apiPaths.serviceTypes, serviceTypeRoute)
+      this.app.use(this.apiPaths.serviceTypes, serviceTypeRoute),
+      this.app.use(this.apiPaths.sendMail, emailRoute)
   }
 
   listen() {

@@ -179,7 +179,8 @@
                 <div class="custom-file">
                   <p class="input-label">Adjuntar evidencia <span class="text">( Archivos aceptados: pdf, doc/
                       docx - Tamaño máx. : 150kb )</span></p>
-                  <input formControlName="adjunto" type="file" class="custom-file-input form-control" id="validatedCustomFile">
+                  <input formControlName="adjunto" type="file" class="custom-file-input form-control"
+                    id="validatedCustomFile">
                   <label class="custom-file-label" for="validatedCustomFile"><span class="file-return">No file
                       choosen</span></label>
                 </div>
@@ -208,6 +209,9 @@
                 <small *ngIf="isValidField('terminos')" class="form-text text-danger">{{
                   getFieldError('terminos')}}</small>
               </div>
+            </div>
+            <div *ngIf="fSend" class="alert alert-success mb-3" role="alert">
+              Su reclamo ha sido enviado con éxito!
             </div>
             <button [disabled]="myForm.invalid" type="submit" class="btn">Enviar Reclamo</button>
           </form>

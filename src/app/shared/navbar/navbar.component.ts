@@ -8,8 +8,8 @@ import { Component, HostListener } from '@angular/core';
 export class NavbarComponent {
 
   scrollOn: boolean = false;
-  @HostListener('scroll', ['$event'])
 
+  @HostListener('scroll', ['$event'])
   onScroll($event: Event) {
     // let scrollEvent = $event.srcElement?.addEventListener;
     $event.srcElement?.addEventListener;

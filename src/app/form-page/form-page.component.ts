@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+// Services & interfaces
 import { ClaimsService } from '../services/claims.service';
 import { ClaimInterface } from '../interfaces/claimInterface';
 import { UsersService } from '../services/users.service';
 import { UserInterface } from '../interfaces/userInterface';
 import { ClaimDetailsInterface } from '../interfaces/claimDetailsInterface';
 import { ClaimsDetailsService } from '../services/claimDetails.service';
+import { SendEmailService } from '../services/email/email.service';
 
 @Component({
   selector: 'app-form-page',
@@ -16,38 +19,31 @@ export class FormPageComponent {
   num_reclamo: number = 1;
   menor: boolean = false;
   c_type: boolean = false;
+  fSend: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private claimsService: ClaimsService,
     private claimDetailsService: ClaimsDetailsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private sendEmailService: SendEmailService
   ) { }
-
-  ngOnInit() {
-    // this.claimService.getClaims().subscribe(
-    //   res => {
-    //     this.claim = res;
-    //   },
-    //   err => console.error(err)
-    // )
-  }
 
   public myForm: FormGroup = this.fb.group({
     tipo_doc: ['DNI', [Validators.required]],
-    num_doc: ['70555249', [Validators.required, Validators.minLength(8), Validators.pattern('[0-9]+')]],
-    nombres: ['Noé Martín', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$')]],
-    apellidos: ['Rojas Soplín', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$')]],
-    celular: ['938360044', [Validators.required, Validators.minLength(9), Validators.pattern('[0-9]+')]],
-    email: ['rosonoem@gmail.com', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-    direccion: ['Av. Marginal 145, Salamanca Ate, Lima', [Validators.required, Validators.minLength(30)]],
-    apoderado: ['Filonila Mayela Soplín Valdivia', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$')]],
+    num_doc: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]+')]],
+    nombres: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$')]],
+    apellidos: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$')]],
+    celular: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('[0-9]+')]],
+    email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+    direccion: ['', [Validators.required, Validators.minLength(25)]],
+    apoderado: ['', [Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$')]],
     tipo_bien: [1, [Validators.required]],
-    monto: ['200', [Validators.required]],
-    descripcion: ['Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', [Validators.required, Validators.minLength(150)]],
+    monto: ['', [Validators.required]],
+    descripcion: ['', [Validators.required, Validators.minLength(100)]],
     tipo_reclamo: [1, [Validators.required]],
-    detalles: ['Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', [Validators.required, Validators.minLength(150)]],
-    pedido: ['Contrary to popular belief, Lorem Ipsum is not simply random text.', [Validators.required, Validators.minLength(50)]],
+    detalles: ['', [Validators.required, Validators.minLength(50)]],
+    pedido: ['', [Validators.required, Validators.minLength(100)]],
     adjunto: [''],
     terminos: ['', Validators.requiredTrue],
   });
@@ -76,6 +72,8 @@ export class FormPageComponent {
           return 'Este campo es obligatorio.'
         case 'minlength':
           return `Se requiere ${errors['minlength'].requiredLength} carácteres como mínimo.`
+        case 'maxlength':
+          return `Se requiere ${errors['maxlength'].requiredLength} carácteres como máximo.`
         case 'pattern':
           return 'Este campo contiene carácteres no permitidos.'
         case 'email':
@@ -146,10 +144,17 @@ export class FormPageComponent {
 
     // console.log(this.claim);
     console.log(this.myForm.value);
-    this.myForm.reset({ tipo_doc: 'DNI', tipo_bien: 'Producto', tipo_reclamo: 'Queja' });
+    this.myForm.reset({ tipo_doc: 'DNI', tipo_bien: 1, tipo_reclamo: 1 });
+    this.fSend = true;
     this.num_reclamo++;
 
     // console.log(this.myForm.get('tipo_reclamo')?.value,)
+
+    // Enviar correo
+    this.sendEmailService.postSendMail(this.myForm.value).subscribe(res => {
+      console.log(res);
+    },
+      err => console.error(err))
   }
 
 }
