@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
 import db from '../db/connection';
-import cors from 'cors';
+var cors = require('cors')
 
 // Routes
 import userRoutes from '../routes/userRoute';
@@ -18,6 +18,17 @@ import './tipoBienModel';
 import './tipoReclamoModel';
 import './tipoUsuarioModel';
 import './userModel';
+
+var whitelist = ['http://localhost:4200', 'https://alka.cloud', 'https://api.alka.cloud']
+var corsOptions = {
+  origin: function (origin: any, callback: any) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 class Server {
   private app: Application;
@@ -53,7 +64,7 @@ class Server {
 
   middlewares() {
     // CORS
-    this.app.use(cors());
+    this.app.use(cors(corsOptions));
     // Body reading
     this.app.use(express.json());
     // Public source
@@ -61,7 +72,7 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.apiPaths.claims, claimRoutes),
+    this.app.use(this.apiPaths.claims, cors(), claimRoutes),
       this.app.use(this.apiPaths.users, userRoutes),
       this.app.use(this.apiPaths.userTypes, userTypeRoute),
       this.app.use(this.apiPaths.claimTypes, claimTypeRoute),

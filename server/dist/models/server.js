@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const connection_1 = __importDefault(require("../db/connection"));
-const cors_1 = __importDefault(require("cors"));
+var cors = require('cors');
 // Routes
 const userRoute_1 = __importDefault(require("../routes/userRoute"));
 const claimRoute_1 = __importDefault(require("../routes/claimRoute"));
@@ -30,6 +30,17 @@ require("./tipoBienModel");
 require("./tipoReclamoModel");
 require("./tipoUsuarioModel");
 require("./userModel");
+var whitelist = ['http://localhost:4200', 'https://alka.cloud', 'https://api.alka.cloud'];
+var corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
 class Server {
     constructor() {
         this.apiPaths = {
@@ -62,14 +73,14 @@ class Server {
     }
     middlewares() {
         // CORS
-        this.app.use((0, cors_1.default)());
+        this.app.use(cors(corsOptions));
         // Body reading
         this.app.use(express_1.default.json());
         // Public source
         this.app.use(express_1.default.static('public'));
     }
     routes() {
-        this.app.use(this.apiPaths.claims, claimRoute_1.default),
+        this.app.use(this.apiPaths.claims, cors(), claimRoute_1.default),
             this.app.use(this.apiPaths.users, userRoute_1.default),
             this.app.use(this.apiPaths.userTypes, userTypeRoute_1.default),
             this.app.use(this.apiPaths.claimTypes, claimTypeRoute_1.default),
