@@ -6,7 +6,7 @@ export interface UserInterface {
   email: string,
   celular: number,
   direccion: string,
-  menor_edad: number,
+  menor_edad: boolean,
   apoderado?: string,
   id_tipo_usuario: number,
 }

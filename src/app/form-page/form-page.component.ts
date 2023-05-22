@@ -90,6 +90,7 @@ export class FormPageComponent {
       return;
     }
 
+    // Almacenando datos de usuarios.
     const users: UserInterface = {
       tipo_documento: this.myForm.get('tipo_doc')?.value,
       num_documento: this.myForm.get('num_doc')?.value,
@@ -98,25 +99,36 @@ export class FormPageComponent {
       email: this.myForm.get('email')?.value,
       celular: this.myForm.get('celular')?.value,
       direccion: this.myForm.get('direccion')?.value,
-      menor_edad: this.myForm.get('menor_edad')?.value,
+      menor_edad: this.menor,
       apoderado: this.myForm.get('apoderado')?.value,
       id_tipo_usuario: 2,
     }
 
-    //Insertar usuario
-    this.usersService.postUser(users).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => console.error(err)
-    )
-
+    // Almacenando Ids para los reclamos.
     const claims: ClaimInterface = {
       id_tipo_reclamo: this.myForm.get('tipo_reclamo')?.value,
       id_detalle: this.num_reclamo,
       id_usuario: this.num_reclamo,
       id_tipo_bien: this.myForm.get('tipo_bien')?.value,
     }
+
+    // Almacenando detalles de los reclamos.
+    const claimDetails: ClaimDetailsInterface = {
+      monto_reclamado: this.myForm.get('monto')?.value,
+      descripcion: this.myForm.get('descripcion')?.value,
+      detalles_reclamo: this.myForm.get('detalles')?.value,
+      pedido: this.myForm.get('pedido')?.value,
+      documento_adjunto: this.myForm.get('adjunto')?.value,
+      id_reclamo: this.num_reclamo
+    }
+
+    //Insertar usuario
+    const user = this.usersService.postUser(users).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => console.error(err)
+    )
 
     // Guardar reclamo
     this.claimsService.postClaim(claims).subscribe(
@@ -126,14 +138,6 @@ export class FormPageComponent {
       err => console.error(err)
     )
 
-    const claimDetails: ClaimDetailsInterface = {
-      monto_reclamado: this.myForm.get('monto')?.value,
-      descripcion: this.myForm.get('descripcion')?.value,
-      detalles_reclamo: this.myForm.get('detalles')?.value,
-      pedido: this.myForm.get('pedido')?.value,
-      documento_adjunto: this.myForm.get('adjunto')?.value,
-    }
-
     // Guardar detalle del reclamo
     this.claimDetailsService.postClaimDetails(claimDetails).subscribe(
       res => {
@@ -142,13 +146,14 @@ export class FormPageComponent {
       err => console.error(err)
     )
 
-    // console.log(this.claim);
     console.log(this.myForm.value);
     this.myForm.reset({ tipo_doc: 'DNI', tipo_bien: 1, tipo_reclamo: 1 });
     this.fSend = true;
     this.num_reclamo++;
 
-    // console.log(this.myForm.get('tipo_reclamo')?.value,)
+    setTimeout(() => {
+      this.fSend = false;
+    }, 3000);
 
     // Enviar correo
     this.sendEmailService.postSendMail(this.myForm.value).subscribe(res => {

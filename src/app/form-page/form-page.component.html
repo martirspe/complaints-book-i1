@@ -1,4 +1,4 @@
-<div class="ugf-wraper">
+<div *ngIf="!fSend" class="ugf-wraper">
   <app-navbar></app-navbar>
   <div class="container">
     <div class="row justify-content-center">
@@ -210,13 +210,20 @@
                   getFieldError('terminos')}}</small>
               </div>
             </div>
-            <div *ngIf="fSend" class="alert alert-success mb-3" role="alert">
-              Su reclamo ha sido enviado con éxito!
-            </div>
-            <button [disabled]="myForm.invalid" type="submit" class="btn">Enviar Reclamo</button>
+            <button [disabled]="myForm.invalid" type="submit" routerLink="" class="btn">Enviar Reclamo</button>
           </form>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="fSend" class="ugf-bg">
+  <div class="final-content">
+    <div class="icon">
+      <img src="assets/images/big-green-check.png" alt="">
+    </div>
+    <h2>Reclamo Enviado</h2>
+    <p>¡Gracias por registrar su reclamo! <br> El tiempo de respuesta es no mayor a 15 días hábiles.</p>
   </div>
 </div>

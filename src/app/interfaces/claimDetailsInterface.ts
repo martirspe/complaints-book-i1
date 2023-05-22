@@ -6,4 +6,5 @@ export interface ClaimDetailsInterface {
   documento_adjunto?: string,
   respuesta?: string
   correo_enviado?: string
+  id_reclamo: number
 }

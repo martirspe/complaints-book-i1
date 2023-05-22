@@ -13,10 +13,6 @@ const Claims = db.define('reclamos', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  id_detalle: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
   id_tipo_bien: {
     type: DataTypes.INTEGER,
     allowNull: false

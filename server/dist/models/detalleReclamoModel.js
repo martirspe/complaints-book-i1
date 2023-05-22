@@ -40,6 +40,10 @@ const DetalleReclamos = connection_1.default.define('detalle_reclamos', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         defaultValue: 0
+    },
+    id_reclamo: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false
     }
 }, { timestamps: false });
 exports.default = DetalleReclamos;

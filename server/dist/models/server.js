@@ -51,8 +51,8 @@ class Server {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield connection_1.default.authenticate();
-                yield connection_1.default.sync();
-                // await db.sync({ force: true });
+                // await db.sync();
+                yield connection_1.default.sync({ force: true });
                 console.log('Database online.');
             }
             catch (error) {

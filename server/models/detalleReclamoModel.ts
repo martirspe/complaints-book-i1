@@ -37,6 +37,10 @@ const DetalleReclamos = db.define('detalle_reclamos', {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 0
+  },
+  id_reclamo: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 }, { timestamps: false });
 

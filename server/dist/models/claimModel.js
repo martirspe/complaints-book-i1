@@ -17,10 +17,6 @@ const Claims = connection_1.default.define('reclamos', {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
     },
-    id_detalle: {
-        type: sequelize_1.DataTypes.INTEGER,
-        allowNull: false
-    },
     id_tipo_bien: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
