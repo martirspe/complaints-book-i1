@@ -80,7 +80,7 @@ class Server {
         this.app.use(express_1.default.static('public'));
     }
     routes() {
-        this.app.use(this.apiPaths.claims, cors(), claimRoute_1.default),
+        this.app.use(this.apiPaths.claims, claimRoute_1.default),
             this.app.use(this.apiPaths.users, userRoute_1.default),
             this.app.use(this.apiPaths.userTypes, userTypeRoute_1.default),
             this.app.use(this.apiPaths.claimTypes, claimTypeRoute_1.default),

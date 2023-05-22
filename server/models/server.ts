@@ -72,7 +72,7 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.apiPaths.claims, cors(), claimRoutes),
+    this.app.use(this.apiPaths.claims, claimRoutes),
       this.app.use(this.apiPaths.users, userRoutes),
       this.app.use(this.apiPaths.userTypes, userTypeRoute),
       this.app.use(this.apiPaths.claimTypes, claimTypeRoute),
