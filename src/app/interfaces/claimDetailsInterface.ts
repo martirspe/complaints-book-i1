@@ -5,6 +5,6 @@ export interface ClaimDetailsInterface {
   pedido: string,
   documento_adjunto?: string,
   respuesta?: string
-  correo_enviado?: string
+  correo_enviado?: boolean
   id_reclamo: number
 }

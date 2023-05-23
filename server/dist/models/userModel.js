@@ -32,7 +32,6 @@ const Users = connection_1.default.define('usuarios', {
     },
     email: {
         type: sequelize_1.DataTypes.STRING,
-        unique: true,
         allowNull: false
     },
     celular: {

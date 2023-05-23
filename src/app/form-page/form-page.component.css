@@ -396,6 +396,21 @@
   transition: all .3s ease;
 }
 
+.ufg-job-application-wrapper .job-application-form .form-group .select-input {
+  position: relative;
+}
+
+.ufg-job-application-wrapper .job-application-form .form-group .select-input span {
+  position: absolute;
+  top: 27px;
+  right: 15px;
+  height: 0;
+  width: 0;
+  border-top: 6px solid #b2becc;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+}
+
 .ufg-job-application-wrapper .job-application-form .form-group .custom-file {
   height: auto;
   height: 80px;
@@ -423,12 +438,12 @@
   padding: 0;
   color: #b2becc;
   border: 1px dashed #bfbfbf;
-  padding-left: 140px;
+  padding-left: 165px;
   line-height: 60px;
 }
 
 .ufg-job-application-wrapper .job-application-form .form-group .custom-file .custom-file-label:after {
-  content: '+ CHOOSE FILE';
+  content: '+ ELIJA EL ARCHIVO';
   top: 16px;
   left: 25px;
   right: auto;

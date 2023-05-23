@@ -28,8 +28,8 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label class="input-label" for="nDoc"><span>*</span>Número de documento</label>
-                    <input formControlName="num_doc" type="text" class="form-control" id="nDoc"
-                      placeholder="Introduce tu número de documento.">
+                    <input formControlName="num_doc" type="text" class="form-control" id="num_doc"
+                      placeholder="Introduce tu número de documento." maxlength="8">
                     <small *ngIf="isValidField('num_doc')" class="form-text text-danger">{{
                       getFieldError('num_doc')}}</small>
                   </div>
@@ -60,7 +60,7 @@
                   <div class="form-group">
                     <label class="input-label" for="inputPhone"><span>*</span>Teléfono/Celular</label>
                     <input formControlName="celular" type="text" class="form-control" id="inputPhone"
-                      placeholder="Introduce tu número celular.">
+                      placeholder="Introduce tu número celular." maxlength="9">
                     <small *ngIf="isValidField('celular')" class="form-text text-danger">{{
                       getFieldError('celular')}}</small>
                   </div>
@@ -75,36 +75,48 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="input-label" for="inputAddress"><span>*</span>Dirección actual</label>
-                <input formControlName="direccion" type="text" class="form-control" id="inputAddress"
-                  placeholder="Introduce tu dirección actual.">
-                <small *ngIf="isValidField('direccion')" class="form-text text-danger">{{
-                  getFieldError('direccion')}}</small>
-              </div>
-              <div class="form-group check-gender">
-                <span class="lebel-text"><span>*</span>¿Es menor de edad?</span>
-                <div class="custom-radio">
-                  <input (click)="menor_edad()" type="radio" name="gender" class="custom-control-input" id="si">
-                  <label class="custom-control-label" for="si">Si</label>
-                </div>
-                <div class="custom-radio">
-                  <input (click)="menor_edad()" type="radio" name="gender" class="custom-control-input" id="no" checked>
-                  <label class="custom-control-label" for="no">No</label>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="input-label" for="inputAddress"><span>*</span>Dirección actual</label>
+                    <input formControlName="direccion" type="text" class="form-control" id="inputAddress"
+                      placeholder="Introduce tu dirección actual.">
+                    <small *ngIf="isValidField('direccion')" class="form-text text-danger">{{
+                      getFieldError('direccion')}}</small>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <div *ngIf="menor==true" class="form-group">
-                  <label class="input-label" for="fName"><span>*</span>Apoderado</label>
-                  <input formControlName="apoderado" type="text" class="form-control" id="fApoderado"
-                    placeholder="Introduce los datos completos de tu apoderado.">
-                  <small *ngIf="isValidField('apoderado')" class="form-text text-danger">{{
-                    getFieldError('apoderado')}}</small>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group check-gender">
+                    <span class="lebel-text"><span>*</span>¿Es menor de edad?</span>
+                    <div class="custom-radio">
+                      <input (click)="isYounger(true)" type="radio" name="gender" class="custom-control-input" id="si">
+                      <label class="custom-control-label" for="si">Si</label>
+                    </div>
+                    <div class="custom-radio">
+                      <input (click)="isYounger(false)" type="radio" name="gender" class="custom-control-input" id="no"
+                        checked>
+                      <label class="custom-control-label" for="no">No</label>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <p *ngIf="menor==false">Si eres menor de edad, por favor marcar la casilla de arriba y completar la
-                información de uno de
-                tus padres o de tu representante legal.</p>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <div *ngIf="mEdad==true" class="form-group">
+                      <label class="input-label" for="fName"><span>*</span>Apoderado</label>
+                      <input formControlName="apoderado" type="text" class="form-control" id="fApoderado"
+                        placeholder="Introduce los datos completos de tu apoderado.">
+                      <small *ngIf="isValidField('apoderado')" class="form-text text-danger">{{
+                        getFieldError('apoderado')}}</small>
+                    </div>
+                  </div>
+                  <p *ngIf="mEdad==false">Si eres menor de edad, por favor marcar la casilla de arriba y completar la
+                    información de uno de tus padres o de tu representante legal.</p>
+                </div>
+              </div>
             </div>
             <div class="input-type-block">
               <h4>Identificación del bien contratado</h4>
@@ -131,86 +143,113 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="input-label" for="inputDetails"><span>*</span>Descripción</label>
-                <textarea formControlName="descripcion" class="form-control" id="inputDetails"
-                  placeholder="Describe el problema que ha tenido respecto al producto o servicio que adquirió con la empresa."></textarea>
-                <small *ngIf="isValidField('descripcion')" class="form-text text-danger">{{
-                  getFieldError('descripcion')}}</small>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="input-label" for="inputDetails"><span>*</span>Descripción</label>
+                    <textarea formControlName="descripcion" class="form-control" id="inputDetails"
+                      placeholder="Describe el problema que ha tenido respecto al producto o servicio que adquirió con la empresa."></textarea>
+                    <small *ngIf="isValidField('descripcion')" class="form-text text-danger">{{
+                      getFieldError('descripcion')}}</small>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="input-type-block">
               <h4>Detalle de Reclamación y Pedido del Consumidor</h4>
               <div class="row">
-                <div class="col-sm-4">
+                <div class="col-xl-4 col-lg-4 col-sm-5">
                   <div class="form-group">
                     <label class="input-label" for="tRec"><span>*</span>Tipo de Reclamación</label>
                     <div class="select-input">
                       <span></span>
-                      <select (change)="claim_type()" formControlName="tipo_reclamo" id="inputRec" class="form-control">
+                      <select (change)="claimType()" formControlName="tipo_reclamo" id="inputRec" class="form-control">
                         <option value="1">Queja</option>
                         <option value="2">Reclamo</option>
                       </select>
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-8">
-                  <p *ngIf="c_type==true" class="lh-sm mt-5">Disconformidad no relacionada a los productos o
-                    servicios; o, malestar o descontento respecto a la atención al público.</p>
-                  <p *ngIf="c_type==false" class="lh-sm mt-5">Disconformidad relacionada a los productos o servicios.
-                  </p>
+                <div class="col-xl-8 col-lg-8 col-sm-7">
+                  <div class="form-group">
+                    <p *ngIf="cType==true">Disconformidad no relacionada a los productos o
+                      servicios; o, malestar o descontento respecto a la atención al público.</p>
+                    <p *ngIf="cType==false">Disconformidad relacionada a los productos o servicios.</p>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="input-label" for="inputDetails"><span>*</span>Detalles</label>
-                <textarea formControlName="detalles" class="form-control" id="inputDetails"
-                  placeholder="Describe a mayor detalle su queja o reclamo."></textarea>
-                <small *ngIf="isValidField('detalles')" class="form-text text-danger">{{
-                  getFieldError('detalles')}}</small>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="input-label" for="inputDetails"><span>*</span>Detalles</label>
+                    <textarea formControlName="detalles" class="form-control" id="inputDetails"
+                      placeholder="Describe a mayor detalle su queja o reclamo."></textarea>
+                    <small *ngIf="isValidField('detalles')" class="form-text text-danger">{{
+                      getFieldError('detalles')}}</small>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label class="input-label" for="inputDetails"><span>*</span>Pedido <small>(explicar de forma concreta lo
-                    que solicita)</small></label>
-                <textarea formControlName="pedido" class="form-control" id="inputDetails"
-                  placeholder="Introduce tu solicitud o pedido para resolver la controversia."></textarea>
-                <small *ngIf="isValidField('pedido')" class="form-text text-danger">{{ getFieldError('pedido')}}</small>
-              </div>
-              <div class="form-group">
-                <div class="custom-file">
-                  <p class="input-label">Adjuntar evidencia <span class="text">( Archivos aceptados: pdf, doc/
-                      docx - Tamaño máx. : 150kb )</span></p>
-                  <input formControlName="adjunto" type="file" class="custom-file-input form-control"
-                    id="validatedCustomFile">
-                  <label class="custom-file-label" for="validatedCustomFile"><span class="file-return">No file
-                      choosen</span></label>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="input-label" for="inputDetails"><span>*</span>Pedido <small>(explicar de forma
+                        concreta lo
+                        que solicita)</small></label>
+                    <textarea formControlName="pedido" class="form-control" id="inputDetails"
+                      placeholder="Introduce tu solicitud o pedido para resolver la controversia."></textarea>
+                    <small *ngIf="isValidField('pedido')" class="form-text text-danger">{{
+                      getFieldError('pedido')}}</small>
+                  </div>
+                  <div class="form-group">
+                    <div class="custom-file">
+                      <p class="input-label">Adjuntar evidencia <span class="text">( Archivos aceptados: pdf, doc/
+                          docx - Tamaño máx. : 150kb )</span></p>
+                      <input formControlName="adjunto" type="file" class="custom-file-input form-control"
+                        id="validatedCustomFile">
+                      <label class="custom-file-label" for="validatedCustomFile"><span class="file-return">No file
+                          choosen</span></label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="input-type-block">
-              <h4>Observaciones y Acciones Adoptadas por el Proveedor</h4>
-              <p>La respuesta a la presente será atendida mediante correo electrónico a la dirección que usted ha
-                consignado en la presente hoja de reclamación.</p>
-            </div>
-            <div class="input-type-block">
-              <small>
-                * La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito
-                previo para interponer una denuncia ante el INDECOPI.<br>* El proveedor debe dar respuesta al reclamo o
-                queja en un plazo no mayor a quince (15) días
-                hábiles, el cual es improrrogable.
-              </small>
-            </div>
-            <div class="input-type-block">
-              <div class="form-group">
-                <div class="custom-checkbox">
-                  <input formControlName="terminos" type="checkbox" class="custom-control-input" id="terms">
-                  <label class="custom-control-label" for="terms">He leído y acepto los <a href="#">Términos y
-                      Condiciones</a> y las <a href="#">Políticas de Privacidad</a>.</label>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="input-type-block">
+                    <h4>Observaciones y Acciones Adoptadas por el Proveedor</h4>
+                    <p>La respuesta a la presente será atendida mediante correo electrónico a la dirección que usted ha
+                      consignado en la presente hoja de reclamación.</p>
+                  </div>
+                  <div class="input-type-block">
+                    <small>
+                      * La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es
+                      requisito
+                      previo para interponer una denuncia ante el INDECOPI.<br>* El proveedor debe dar respuesta al
+                      reclamo o
+                      queja en un plazo no mayor a quince (15) días
+                      hábiles, el cual es improrrogable.
+                    </small>
+                  </div>
                 </div>
-                <small *ngIf="isValidField('terminos')" class="form-text text-danger">{{
-                  getFieldError('terminos')}}</small>
               </div>
             </div>
-            <button [disabled]="myForm.invalid" type="submit" routerLink="" class="btn">Enviar Reclamo</button>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="input-type-block">
+                  <div class="form-group">
+                    <div class="custom-checkbox">
+                      <input formControlName="terminos" type="checkbox" class="custom-control-input" id="terms">
+                      <label class="custom-control-label" for="terms">He leído y acepto los <a href="#">Términos y
+                          Condiciones</a> y las <a href="#">Políticas de Privacidad</a>.</label>
+                    </div>
+                    <small *ngIf="isValidField('terminos')" class="form-text text-danger">{{
+                      getFieldError('terminos')}}</small>
+                  </div>
+                </div>
+                <button [disabled]="myForm.invalid" type="submit" routerLink="" class="btn">Enviar Reclamo</button>
+              </div>
+            </div>
           </form>
         </div>
       </div>

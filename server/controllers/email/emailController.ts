@@ -1,46 +1,37 @@
-import { Request, Response } from 'express';
-import nodeMailer from 'nodemailer';
+import nodemailer from 'nodemailer';
 
-export const sendMail = (req: Request, res: Response) => {
-  const { body } = req;
-
-  const transporter = nodeMailer.createTransport({
-    host: 'mail.alka.cloud',
+export const sendMail = async () => {
+  const config = {
+    host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-      user: 'admin@alka.cloud',
-      pass: 'Alka@4510$'
+      user: 'rosonoem@gmail.com',
+      pass: 'joqdciqrfinxnnop'
+    }
+  };
+
+  const message = {
+    from: '"Node Foo 👻" <admin@alka.cloud>',
+    to: "mrojas@alka.cloud",
+    subject: "Hello ✔",
+    html: "<b>Hello world?</b>"
+  };
+
+  const transport = nodemailer.createTransport(config);
+  const info = await transport.sendMail(message);
+
+  // Verify connection configuration
+  transport.verify(function (error, success) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Server is ready to take our messages");
     }
   });
 
-  const mailOptions = {
-    from: `"${body.nombres} 👻" <${body.email}>`,
-    to: 'u22222790@utp.edu.pe',
-    subject: `${body.nombres}, registró un reclamo en TEKNOMARKET S.A.C`,
-    html: `
-    <strong>Nombres:</strong> ${body.nombres} <br/>
-    <strong>Apellidos:</strong> ${body.apellidos} <br/>
-    <strong>Tipo de documento:</strong> ${body.tipo_doc} <br/>
-    <strong>Número de documento:</strong> ${body.num_doc} <br/>
-    <strong>Número de documento:</strong> ${body.celular} <br/>
-    <strong>E-mail:</strong> ${body.email} <br/>
-    <strong>Dirección actual:</strong> ${body.direccion} <br/>
-    <strong>Menor de edad:</strong> ${body.menor_edad} <br/>
-    <strong>Apoderado:</strong> ${body.apoderado} <br/>
-    <strong>Tipo del bien:</strong> ${body.tipo_bien} <br/>
-    <strong>Monto reclamado:</strong> ${body.monto} <br/>
-    <strong>Descripción:</strong> ${body.descripcion} <br/>
-    <strong>Tipo de reclamo:</strong> ${body.tipo_reclamo} <br/>
-    <strong>Detalles:</strong> ${body.detalles} <br/>
-    <strong>Pedido:</strong> ${body.pedido} <br/>
-    <strong>Aceptación de los términos:</strong> ${body.terminos}`
-  };
+  console.log("Message sent: %s", info.messageId);
 
-  transporter.sendMail(mailOptions, function (err, info) {
-    if (err)
-      console.log(err)
-    else
-      console.log(info);
-  });
 }
+
+sendMail();

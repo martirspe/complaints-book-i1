@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 // Services & interfaces
 import { ClaimsService } from '../services/claims.service';
@@ -16,17 +17,19 @@ import { SendEmailService } from '../services/email/email.service';
   styleUrls: ['./form-page.component.css']
 })
 export class FormPageComponent {
-  num_reclamo: number = 1;
-  menor: boolean = false;
-  c_type: boolean = false;
+  nClaim: number = 1;
+  mEdad: boolean = false;
+  cType: boolean = false;
   fSend: boolean = false;
+  eSend: boolean = false;
 
   constructor(
     private fb: FormBuilder,
+    private http: HttpClient,
     private claimsService: ClaimsService,
     private claimDetailsService: ClaimsDetailsService,
     private usersService: UsersService,
-    private sendEmailService: SendEmailService
+    private sendEmailService: SendEmailService,
   ) { }
 
   // public myForm: FormGroup = this.fb.group({
@@ -67,14 +70,14 @@ export class FormPageComponent {
     terminos: ['', Validators.requiredTrue],
   });
 
-  menor_edad(): void {
-    this.menor = !this.menor;
+  isYounger(value: boolean): void {
+    this.mEdad = value;
     // console.log(this.menor);
   }
 
-  claim_type(): void {
-    this.c_type = !this.c_type;
-    // console.log(this.c_type);
+  claimType(): void {
+    this.cType = !this.cType;
+    // console.log(this.cType);
   }
 
   isValidField(field: string): boolean | null {
@@ -118,7 +121,7 @@ export class FormPageComponent {
       email: this.myForm.get('email')?.value,
       celular: this.myForm.get('celular')?.value,
       direccion: this.myForm.get('direccion')?.value,
-      menor_edad: this.menor,
+      menor_edad: this.mEdad,
       apoderado: this.myForm.get('apoderado')?.value,
       id_tipo_usuario: 2,
     }
@@ -126,8 +129,8 @@ export class FormPageComponent {
     // Almacenando Ids para los reclamos.
     const claims: ClaimInterface = {
       id_tipo_reclamo: this.myForm.get('tipo_reclamo')?.value,
-      id_detalle: this.num_reclamo,
-      id_usuario: this.num_reclamo,
+      id_detalle: this.nClaim,
+      id_usuario: this.nClaim,
       id_tipo_bien: this.myForm.get('tipo_bien')?.value,
     }
 
@@ -138,11 +141,12 @@ export class FormPageComponent {
       detalles_reclamo: this.myForm.get('detalles')?.value,
       pedido: this.myForm.get('pedido')?.value,
       documento_adjunto: this.myForm.get('adjunto')?.value,
-      id_reclamo: this.num_reclamo
+      id_reclamo: this.nClaim,
+      correo_enviado: !this.eSend
     }
 
     //Insertar usuario
-    const user = this.usersService.postUser(users).subscribe(
+    this.usersService.postUser(users).subscribe(
       res => {
         console.log(res);
       },
@@ -168,7 +172,7 @@ export class FormPageComponent {
     console.log(this.myForm.value);
     this.myForm.reset({ tipo_doc: 'DNI', tipo_bien: 1, tipo_reclamo: 1 });
     this.fSend = true;
-    this.num_reclamo++;
+    this.nClaim++;
 
     setTimeout(() => {
       this.fSend = false;
@@ -179,6 +183,7 @@ export class FormPageComponent {
       console.log(res);
     },
       err => console.error(err))
+
   }
 
 }
