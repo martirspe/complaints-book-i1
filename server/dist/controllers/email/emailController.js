@@ -30,15 +30,18 @@ const sendMail = () => __awaiter(void 0, void 0, void 0, function* () {
         subject: "Hello ✔",
         html: "<b>Hello world?</b>"
     };
-    try {
-        const transport = nodemailer_1.default.createTransport(config);
-        yield transport.verify(); // Verify connection configuration
-        const info = yield transport.sendMail(message);
-        console.log("Message sent: %s", info.messageId);
-    }
-    catch (error) {
-        console.log(error);
-    }
+    const transport = nodemailer_1.default.createTransport(config);
+    const info = yield transport.sendMail(message);
+    // Verify connection configuration
+    transport.verify(function (error, success) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log("Server is ready to take our messages");
+        }
+    });
+    console.log("Message sent: %s", info.messageId);
 });
 exports.sendMail = sendMail;
 (0, exports.sendMail)();
