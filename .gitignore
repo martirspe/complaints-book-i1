@@ -1,6 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
+/server
 server/dist
 /tmp
 /out-tsc
@@ -8,7 +9,6 @@ server/dist
 
 # Node
 /node_modules
-server/node_modules
 npm-debug.log
 yarn-error.log
 

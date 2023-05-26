@@ -18,20 +18,15 @@ export const sendMail = async () => {
     html: "<b>Hello world?</b>"
   };
 
-  const transport = nodemailer.createTransport(config);
-  const info = await transport.sendMail(message);
+  try {
+    const transport = nodemailer.createTransport(config);
+    await transport.verify(); // Verify connection configuration
 
-  // Verify connection configuration
-  transport.verify(function (error, success) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Server is ready to take our messages");
-    }
-  });
-
-  console.log("Message sent: %s", info.messageId);
-
+    const info = await transport.sendMail(message);
+    console.log("Message sent: %s", info.messageId);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 sendMail();
