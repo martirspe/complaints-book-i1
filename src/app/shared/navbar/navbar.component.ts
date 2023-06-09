@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { ClaimNumberService } from '../../services/claimNumber.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,6 +7,8 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  constructor(public claimNumberService: ClaimNumberService) { }
 
   scrollOn: boolean = false;
 

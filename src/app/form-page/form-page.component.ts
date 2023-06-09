@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 // Services & interfaces
+import { ClaimNumberService } from '../services/claimNumber.service';
 import { ClaimsService } from '../services/claims.service';
 import { ClaimInterface } from '../interfaces/claimInterface';
 import { UsersService } from '../services/users.service';
@@ -10,6 +10,7 @@ import { UserInterface } from '../interfaces/userInterface';
 import { ClaimDetailsInterface } from '../interfaces/claimDetailsInterface';
 import { ClaimsDetailsService } from '../services/claimDetails.service';
 import { SendEmailService } from '../services/email/email.service';
+import { EmailInterface } from '../interfaces/email/emailInterface';
 
 @Component({
   selector: 'app-form-page',
@@ -22,10 +23,14 @@ export class FormPageComponent {
   cType: boolean = false;
   fSend: boolean = false;
   eSend: boolean = false;
+  // eClaim: string = 'ventas@alkacorp.com';
+  eClaim: string = '';
+  tReclamo: string = '';
+  tBien: string = '';
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
+    private claimNumberService: ClaimNumberService,
     private claimsService: ClaimsService,
     private claimDetailsService: ClaimsDetailsService,
     private usersService: UsersService,
@@ -169,21 +174,101 @@ export class FormPageComponent {
       err => console.error(err)
     )
 
-    console.log(this.myForm.value);
+    // console.log(this.myForm.value);
+
+    // Setea los datos por defecto en el formulario.
     this.myForm.reset({ tipo_doc: 'DNI', tipo_bien: 1, tipo_reclamo: 1 });
     this.fSend = true;
-    this.nClaim++;
+    this.claimNumberService.nClaim = this.nClaim++;
 
+    // Cambiar los ID del tipo de bien, por su descripción.
+    if (claims.id_tipo_bien === 1) {
+      this.tBien = "Producto"
+    } else {
+      this.tBien = "Servicio"
+    }
+
+    // Cambiar los ID del tipo de reclamo, por su descripción.
+    if (claims.id_tipo_reclamo === 1) {
+      this.tReclamo = "Queja"
+    } else {
+      this.tReclamo = "Reclamo"
+    }
+
+    if (!this.mEdad) {
+      // Datos para el correo
+      const data: EmailInterface = {
+        from: 'admin@alka.cloud',
+        to: users.email,
+        bcc: this.eClaim,
+        subject: 'Nuevo reclamo en Alka Corp. SAC',
+        html: `<h2>¡Su reclamo #000${this.nClaim}-2023 ha sido registrado!</h2>
+        <p>A continuación te mostramos los detalles de tu reclamo:</p>
+        <h3>Identificación del Consumidor Reclamante</h3>
+        <p><strong>Nombre:</strong> ${users.nombres}</p>
+        <p><strong>Apellidos:</strong> ${users.apellidos}</p>
+        <p><strong>Tipo de documento:</strong> ${users.tipo_documento}</p>
+        <p><strong>Número de documento:</strong> ${users.num_documento}</p>
+        <p><strong>Celular:</strong> ${users.celular}</p>
+        <p><strong>Correo electrónico:</strong> ${users.email}</p>
+        <p><strong>Dirección actual:</strong> ${users.direccion}</p>
+        <h3>Identificación del Bien Contratado</h3>
+        <p><strong>Tipo del bien:</strong> ${this.tBien}</p>
+        <p><strong>Monto reclamado:</strong> ${claimDetails.monto_reclamado}</p>
+        <p><strong>Descripción:</strong> ${claimDetails.descripcion}</p>
+        <h3>Detalle de Reclamación y Pedido del Consumidor</h3>
+        <p><strong>Tipo de reclamo:</strong> ${this.tReclamo}</p>
+        <p><strong>Detalles:</strong> ${claimDetails.detalles_reclamo}</p>
+        <p><strong>Pedido:</strong> ${claimDetails.pedido}</p>`,
+        attachments: claimDetails.documento_adjunto,
+      }
+
+      // Enviar correo
+      this.sendEmailService.sendMail(data).subscribe(
+        res => {
+          console.log(res);
+        },
+        err => console.error(err))
+    } else {
+      // Datos para el correo
+      const data: EmailInterface = {
+        from: 'admin@alka.cloud',
+        to: users.email,
+        bcc: this.eClaim,
+        subject: 'Nuevo reclamo en Alka Corp. SAC',
+        html: `<h2>¡Su reclamo #000${this.nClaim}-2023 ha sido registrado!</h2>
+        <p>A continuación te mostramos los detalles de tu reclamo:</p>
+        <h3>Identificación del Consumidor Reclamante</h3>
+        <p><strong>Nombre:</strong> ${users.nombres}</p>
+        <p><strong>Apellidos:</strong> ${users.apellidos}</p>
+        <p><strong>Tipo de documento:</strong> ${users.tipo_documento}</p>
+        <p><strong>Número de documento:</strong> ${users.num_documento}</p>
+        <p><strong>Celular:</strong> ${users.celular}</p>
+        <p><strong>Correo electrónico:</strong> ${users.email}</p>
+        <p><strong>Dirección actual:</strong> ${users.direccion}</p>
+        <p><strong>Apoderado:</strong> ${users.apoderado}</p>
+        <h3>Identificación del Bien Contratado</h3>
+        <p><strong>Tipo del bien:</strong> ${this.tBien}</p>
+        <p><strong>Monto reclamado:</strong> ${claimDetails.monto_reclamado}</p>
+        <p><strong>Descripción:</strong> ${claimDetails.descripcion}</p>
+        <h3>Detalle de Reclamación y Pedido del Consumidor</h3>
+        <p><strong>Tipo de reclamo:</strong> ${this.tReclamo}</p>
+        <p><strong>Detalles:</strong> ${claimDetails.detalles_reclamo}</p>
+        <p><strong>Pedido:</strong> ${claimDetails.pedido}</p>`,
+        attachments: claimDetails.documento_adjunto,
+      }
+
+      // Enviar correo
+      this.sendEmailService.sendMail(data).subscribe(
+        res => {
+          console.log(res);
+        },
+        err => console.error(err))
+    }
+
+    // Ocultar mensaje de envío
     setTimeout(() => {
       this.fSend = false;
-    }, 3000);
-
-    // Enviar correo
-    this.sendEmailService.postSendMail(this.myForm.value).subscribe(res => {
-      console.log(res);
-    },
-      err => console.error(err))
-
+    }, 3500);
   }
-
 }

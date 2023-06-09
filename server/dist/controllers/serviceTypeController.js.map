@@ -1,1 +1,0 @@
-{"version":3,"file":"serviceTypeController.js","sourceRoot":"","sources":["../../controllers/serviceTypeController.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;AACA,4EAAiD;AAE1C,MAAM,eAAe,GAAG,CAAO,GAAY,EAAE,GAAa,EAAE,EAAE;IACnE,MAAM,WAAW,GAAG,MAAM,uBAAU,CAAC,OAAO,EAAE,CAAC;IAC/C,GAAG,CAAC,IAAI,CAAC,WAAW,CAAC,CAAC;AACxB,CAAC,CAAA,CAAA;AAHY,QAAA,eAAe,mBAG3B"}
