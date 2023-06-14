@@ -18,7 +18,7 @@ import { EmailInterface } from '../interfaces/email/emailInterface';
   styleUrls: ['./form-page.component.css']
 })
 export class FormPageComponent {
-  nClaim: number = 1;
+  iClaim: number = 1;
   mEdad: boolean = false;
   cType: boolean = false;
   fSend: boolean = false;
@@ -134,8 +134,8 @@ export class FormPageComponent {
     // Almacenando Ids para los reclamos.
     const claims: ClaimInterface = {
       id_tipo_reclamo: this.myForm.get('tipo_reclamo')?.value,
-      id_detalle: this.nClaim,
-      id_usuario: this.nClaim,
+      id_detalle: this.iClaim,
+      id_usuario: this.iClaim,
       id_tipo_bien: this.myForm.get('tipo_bien')?.value,
     }
 
@@ -146,14 +146,14 @@ export class FormPageComponent {
       detalles_reclamo: this.myForm.get('detalles')?.value,
       pedido: this.myForm.get('pedido')?.value,
       documento_adjunto: this.myForm.get('adjunto')?.value,
-      id_reclamo: this.nClaim,
+      id_reclamo: this.iClaim,
       correo_enviado: !this.eSend
     }
 
     //Insertar usuario
     this.usersService.postUser(users).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
       },
       err => console.error(err)
     )
@@ -161,7 +161,7 @@ export class FormPageComponent {
     // Guardar reclamo
     this.claimsService.postClaim(claims).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
       },
       err => console.error(err)
     )
@@ -169,7 +169,7 @@ export class FormPageComponent {
     // Guardar detalle del reclamo
     this.claimDetailsService.postClaimDetails(claimDetails).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
       },
       err => console.error(err)
     )
@@ -179,7 +179,7 @@ export class FormPageComponent {
     // Setea los datos por defecto en el formulario.
     this.myForm.reset({ tipo_doc: 'DNI', tipo_bien: 1, tipo_reclamo: 1 });
     this.fSend = true;
-    this.claimNumberService.nClaim = this.nClaim++;
+    this.claimNumberService.nClaim += this.iClaim;
 
     // Cambiar los ID del tipo de bien, por su descripción.
     if (claims.id_tipo_bien === 1) {
@@ -202,7 +202,7 @@ export class FormPageComponent {
         to: users.email,
         bcc: this.eClaim,
         subject: 'Nuevo reclamo en Alka Corp. SAC',
-        html: `<h2>¡Su reclamo #000${this.nClaim}-2023 ha sido registrado!</h2>
+        html: `<h2>¡Su reclamo #${this.claimNumberService.nClaim - 1}-2023 ha sido registrado!</h2>
         <p>A continuación te mostramos los detalles de tu reclamo:</p>
         <h3>Identificación del Consumidor Reclamante</h3>
         <p><strong>Nombre:</strong> ${users.nombres}</p>
@@ -236,7 +236,7 @@ export class FormPageComponent {
         to: users.email,
         bcc: this.eClaim,
         subject: 'Nuevo reclamo en Alka Corp. SAC',
-        html: `<h2>¡Su reclamo #000${this.nClaim}-2023 ha sido registrado!</h2>
+        html: `<h2>¡Su reclamo #${this.claimNumberService.nClaim - 1}-2023 ha sido registrado!</h2>
         <p>A continuación te mostramos los detalles de tu reclamo:</p>
         <h3>Identificación del Consumidor Reclamante</h3>
         <p><strong>Nombre:</strong> ${users.nombres}</p>

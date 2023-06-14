@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+// Variables de entorno
+import { environment } from '../../environments/environment';
+
+// Interfaces
 import { ClaimDetailsInterface } from '../interfaces/claimDetailsInterface';
 
 @Injectable({
@@ -7,7 +12,7 @@ import { ClaimDetailsInterface } from '../interfaces/claimDetailsInterface';
 })
 export class ClaimsDetailsService {
 
-  API_URI = 'http://localhost:8000/api';
+  API_URI = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

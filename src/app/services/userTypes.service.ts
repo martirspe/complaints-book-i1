@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+// Variables de entorno
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserTypesService {
 
-  API_URI = 'http://localhost:8000/api';
+  API_URI = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
