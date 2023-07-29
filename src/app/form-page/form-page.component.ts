@@ -29,8 +29,8 @@ export class FormPageComponent implements OnInit {
 
   // Variables para el envío de correos.
   fromMail: string = '"Alka Corp." <admin@alkacorp.com>';
-  // bbcMail: string = 'ventas@alkacorp.com';
-  bbcMail: string = '';
+  bbcMail: string = 'ventas@alkacorp.com';
+  // bbcMail: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -64,7 +64,7 @@ export class FormPageComponent implements OnInit {
     email_tutor: ['', [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
     t_reclamo: ['Queja', [Validators.required]],
     t_consumo: ['Producto', [Validators.required]],
-    n_pedido: [, [Validators.required]],
+    n_pedido: ['', [Validators.required]],
     a_adjunto: [''],
     m_reclamado: ['', [Validators.required]],
     descripcion: ['', [Validators.required, Validators.minLength(100)]],
