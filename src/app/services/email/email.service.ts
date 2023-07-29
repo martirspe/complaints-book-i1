@@ -12,7 +12,7 @@ import { EmailInterface } from '../../interfaces/email/emailInterface';
 })
 export class SendEmailService {
 
-  API_URI = environment.apiUrl;
+  API_URI = environment.apiUrlMail;
 
   constructor(private http: HttpClient) { }
 

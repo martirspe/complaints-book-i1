@@ -93,11 +93,11 @@
 }
 
 .ufg-job-application-wrapper {
-  padding: 230px 0 50px;
+  padding: 250px 0 50px;
 }
 
 .ufg-job-application-wrapper .job-application-form .input-type-block+.input-type-block {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .ufg-job-application-wrapper .job-application-form .input-type-block.check-field .form-group,

@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'Libro de Reclamaciones';
+  title = 'Libro de Reclamaciones Virtual - Alka Corp. SAC';
 
 }

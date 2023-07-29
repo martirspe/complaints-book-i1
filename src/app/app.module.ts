@@ -9,9 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormPageComponent } from './form-page/form-page.component';
 import { SharedModule } from './shared/shared.module';
 
-// Services
-import { ClaimsService } from './services/claims.service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,9 +20,6 @@ import { ClaimsService } from './services/claims.service';
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule
-  ],
-  providers: [
-    ClaimsService
   ],
   bootstrap: [AppComponent]
 })
