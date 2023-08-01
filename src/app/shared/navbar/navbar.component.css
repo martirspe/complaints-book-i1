@@ -110,3 +110,17 @@
 .ugf-nav-wrap.fixed .ugf-nav .job-wrap h3 {
   padding-bottom: 0;
 }
+
+@media all and (max-width: 991px) {
+  .ugf-nav {
+    display: block;
+  }
+
+  .ugf-nav .salary {
+    margin-top: 10px;
+  }
+
+  .ufg-job-application-wrapper {
+    padding-top: 260px;
+  }
+}

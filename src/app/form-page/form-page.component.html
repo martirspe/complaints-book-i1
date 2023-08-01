@@ -2,13 +2,13 @@
   <app-navbar></app-navbar>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-xl-6 col-lg-7 col-sm-8">
+      <div class="col-xl-6 col-lg-7 col-sm-8 p-sm-0">
         <div class="ufg-job-application-wrapper">
           <form [formGroup]="myForm" (ngSubmit)="onSave()" class="job-application-form" autocomplete="off">
             <div class="input-type-block">
               <h4>Identificación del Consumidor Reclamante</h4>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="t_documento"><span>*</span>Tipo de documento</label>
                     <div class="select-input">
@@ -25,7 +25,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="n_documento"><span>*</span>Número de documento</label>
                     <input formControlName="n_documento" type="text" class="form-control" id="n_documento"
@@ -36,7 +36,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="nombres"><span>*</span>Nombres</label>
                     <input formControlName="nombres" type="text" class="form-control" id="nombres"
@@ -45,7 +45,7 @@
                       getFieldError('nombres')}}</small>
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="apellidos"><span>*</span>Apellidos</label>
                     <input formControlName="apellidos" type="text" class="form-control" id="apellidos"
@@ -56,7 +56,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="celular"><span>*</span>Teléfono/Celular</label>
                     <input formControlName="celular" type="text" class="form-control" id="celular"
@@ -65,7 +65,7 @@
                       getFieldError('celular')}}</small>
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="email"><span>*</span>Correo electrónico</label>
                     <input formControlName="email" type="email" class="form-control" id="email"
@@ -76,7 +76,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="direccion"><span>*</span>Dirección actual</label>
                     <input formControlName="direccion" type="text" class="form-control" id="direccion"
@@ -87,7 +87,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group check-gender">
                     <span class="lebel-text"><span>*</span>¿Es menor de edad?</span>
                     <div class="custom-radio">
@@ -103,7 +103,7 @@
                 </div>
               </div>
               <div class="row" *ngIf="mEdad==false">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <p>Si eres menor de edad, por favor marcar la casilla de arriba y completar la
                       información de uno de tus padres o de tu representante legal.</p>
@@ -114,7 +114,7 @@
             <div class="input-type-block" *ngIf="mEdad==true">
               <h4>Identificación del Padre/Madre/Tutor</h4>
               <div class="row" *ngIf="mEdad==true">
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="t_documento_tutor"><span>*</span>Tipo de documento</label>
                     <div class="select-input">
@@ -131,7 +131,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="n_documento_tutor"><span>*</span>Número de documento</label>
                     <input formControlName="n_documento_tutor" type="text" class="form-control" id="n_documento_tutor"
@@ -142,7 +142,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="nombres_tutor"><span>*</span>Nombres</label>
                     <input formControlName="nombres_tutor" type="text" class="form-control" id="nombres_tutor"
@@ -151,7 +151,7 @@
                       getFieldError('nombres_tutor')}}</small>
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="apellidos_tutor"><span>*</span>Apellidos</label>
                     <input formControlName="apellidos_tutor" type="text" class="form-control" id="apellidos_tutor"
@@ -162,7 +162,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="celular_tutor"><span>*</span>Teléfono/Celular</label>
                     <input formControlName="celular_tutor" type="text" class="form-control" id="celular_tutor"
@@ -171,7 +171,7 @@
                       getFieldError('celular_tutor')}}</small>
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="email_tutor"><span>*</span>Correo electrónico</label>
                     <input formControlName="email_tutor" type="email" class="form-control" id="email_tutor"
@@ -185,7 +185,7 @@
             <div class="input-type-block">
               <h4>Identificación del Bien Contratado</h4>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="t_consumo"><span>*</span>Tipo de consumo</label>
                     <div class="select-input">
@@ -199,7 +199,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="n_pedido"><span>*</span>Número de Pedido</label>
                     <input formControlName="n_pedido" type="number" class="form-control" id="n_pedido"
@@ -208,7 +208,7 @@
                       getFieldError('n_pedido')}}</small>
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="m_reclamado"><span>*</span>Monto reclamado S/.</label>
                     <input formControlName="m_reclamado" type="number" class="form-control" id="m_reclamado"
@@ -219,7 +219,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="descripcion"><span>*</span>Descripción</label>
                     <textarea formControlName="descripcion" class="form-control" id="descripcion"
@@ -233,7 +233,7 @@
             <div class="input-type-block">
               <h4>Detalle de Reclamación y Pedido del Consumidor</h4>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="t_reclamo"><span>*</span>Tipo de Reclamo</label>
                     <div class="select-input">
@@ -247,7 +247,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <p *ngIf="cType==true">Disconformidad no relacionada a los productos o
                       servicios; o, malestar o descontento respecto a la atención al público.</p>
@@ -256,7 +256,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="detalle"><span>*</span>Detalle</label>
                     <textarea formControlName="detalle" class="form-control" id="detalle"
@@ -267,7 +267,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <label class="input-label" for="pedido"><span>*</span>Pedido <small>(explicar de forma
                         concreta lo que solicita)</small></label>
@@ -276,7 +276,9 @@
                     <small *ngIf="isValidField('pedido')" class="form-text text-danger">{{
                       getFieldError('pedido')}}</small>
                   </div>
-                  <!-- <div class="form-group">
+                </div>
+                <!-- <div class="col-sm-12 p-sm-0">
+                  <div class="form-group">
                     <div class="custom-file">
                       <p class="input-label">Adjuntar evidencia <span class="text">( Archivos aceptados: pdf, doc/
                           docx - Tamaño máx. : 150kb )</span></p>
@@ -285,18 +287,20 @@
                       <label class="custom-file-label" for="a_adjunto"><span class="file-return">No file
                           choosen</span></label>
                     </div>
-                  </div> -->
-                </div>
+                  </div>
+                </div> -->
               </div>
             </div>
             <div class="input-type-block">
+              <h4>Observaciones y Acciones Adoptadas por el Proveedor</h4>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
-                    <h4>Observaciones y Acciones Adoptadas por el Proveedor</h4>
                     <p>La respuesta a la presente será atendida mediante correo electrónico a la dirección que usted
                       ha consignado en la presente hoja de reclamación.</p>
                   </div>
+                </div>
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <small>
                       * La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es
@@ -308,7 +312,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group">
                     <div class="custom-checkbox">
                       <input formControlName="a_condiciones" type="checkbox" class="custom-control-input"
@@ -319,6 +323,8 @@
                     <small *ngIf="isValidField('a_condiciones')" class="form-text text-danger">{{
                       getFieldError('a_condiciones')}}</small>
                   </div>
+                </div>
+                <div class="col-sm-12 p-sm-0">
                   <div class="form-group text-center">
                     <label for="captcha" class="form-label">
                       <re-captcha formControlName="recaptchaReactive"
