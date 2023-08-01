@@ -24,7 +24,7 @@ export class NavbarComponent {
   ) { }
 
   ngOnInit(): void {
-    // Obtén la cadena con ceros directamente desde el servicio
+    // Obtiene el número de reclamos con ceros directamente desde el servicio
     this.claimNumberService.getTableLength().subscribe(length => {
       this.tableLength = length + 1;
       this.stringWithZeros = this.tableLength.toString().padStart(this.desiredLength, '0');

@@ -293,35 +293,38 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <div class="input-type-block">
-                      <h4>Observaciones y Acciones Adoptadas por el Proveedor</h4>
-                      <p>La respuesta a la presente será atendida mediante correo electrónico a la dirección que usted
-                        ha consignado en la presente hoja de reclamación.</p>
-                    </div>
-                    <div class="input-type-block">
-                      <small>
-                        * La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es
-                        requisito previo para interponer una denuncia ante el INDECOPI.<br>* El proveedor debe dar
-                        respuesta al reclamo o queja en un plazo no mayor a quince (15) días hábiles, el cual es
-                        improrrogable.
-                      </small>
-                    </div>
+                    <h4>Observaciones y Acciones Adoptadas por el Proveedor</h4>
+                    <p>La respuesta a la presente será atendida mediante correo electrónico a la dirección que usted
+                      ha consignado en la presente hoja de reclamación.</p>
+                  </div>
+                  <div class="form-group">
+                    <small>
+                      * La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es
+                      requisito previo para interponer una denuncia ante el INDECOPI.<br>* El proveedor debe dar
+                      respuesta al reclamo o queja en un plazo no mayor a quince (15) días hábiles, el cual es
+                      improrrogable.
+                    </small>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-12">
-                  <div class="input-type-block">
-                    <div class="form-group">
-                      <div class="custom-checkbox">
-                        <input formControlName="a_condiciones" type="checkbox" class="custom-control-input"
-                          id="a_condiciones">
-                        <label class="custom-control-label" for="a_condiciones">He leído y acepto los <a
-                            href="#">Términos y Condiciones</a> y las <a href="#">Políticas de Privacidad</a>.</label>
-                      </div>
-                      <small *ngIf="isValidField('a_condiciones')" class="form-text text-danger">{{
-                        getFieldError('a_condiciones')}}</small>
+                  <div class="form-group">
+                    <div class="custom-checkbox">
+                      <input formControlName="a_condiciones" type="checkbox" class="custom-control-input"
+                        id="a_condiciones">
+                      <label class="custom-control-label" for="a_condiciones">He leído y acepto los <a href="#">Términos
+                          y Condiciones</a> y las <a href="#">Políticas de Privacidad</a>.</label>
                     </div>
+                    <small *ngIf="isValidField('a_condiciones')" class="form-text text-danger">{{
+                      getFieldError('a_condiciones')}}</small>
+                  </div>
+                  <div class="form-group text-center">
+                    <label for="captcha" class="form-label">
+                      <re-captcha formControlName="recaptchaReactive"
+                        (resolved)="addTokenLog('Reactive form mode resolved', $event)">
+                      </re-captcha>
+                    </label>
                   </div>
                   <button [disabled]="myForm.invalid" type="submit" class="btn">Enviar Reclamo</button>
                 </div>

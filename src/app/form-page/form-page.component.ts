@@ -20,15 +20,17 @@ export class FormPageComponent implements OnInit {
   cType: boolean = false;
   sSend: boolean = false;
   eSend: boolean = false;
+  lrq: string = 'a';
   year = (new Date()).getFullYear();
 
-  // Variables del servicio ClaimNumberService
+  // Variables para el servicio ClaimNumberService
   tableLength: number = 0; // El número que deseas convertir en una cadena con ceros a la izquierda
   desiredLength: number = 4; // La longitud total deseada de la cadena, incluidos los ceros a la izquierda
   stringWithZeros: string = '';
 
-  // Variables para el envío de correos.
-  fromMail: string = '"Alka Corp." <admin@alkacorp.com>';
+  // Variables para el envío de correos
+  companyName: string = 'Alka Corp.'
+  fromMail: string = `"${this.companyName}" <admin@alkacorp.com>`;
   bbcMail: string = 'ventas@alkacorp.com';
   // bbcMail: string = '';
 
@@ -40,13 +42,14 @@ export class FormPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Obtén la cadena con ceros directamente desde el servicio
+    // Obtiene el número de reclamos con ceros directamente desde el servicio
     this.claimNumberService.getTableLength().subscribe(length => {
       this.tableLength = length + 1;
       this.stringWithZeros = this.tableLength.toString().padStart(this.desiredLength, '0');
     });
   }
 
+  // Validaciones del fomulario
   public myForm: FormGroup = this.fb.group({
     t_documento: ['DNI', [Validators.required]],
     n_documento: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]+')]],
@@ -71,16 +74,22 @@ export class FormPageComponent implements OnInit {
     detalle: ['', [Validators.required, Validators.minLength(50)]],
     pedido: ['', [Validators.required, Validators.minLength(100)]],
     a_condiciones: ['', Validators.requiredTrue],
+    recaptchaReactive: ['', [Validators.required]]
   });
 
   isYounger(value: boolean): void {
     this.mEdad = value;
-    // console.log(this.menor);
+    // console.log(this.mEdad);
   }
 
   claimType(): void {
     this.cType = !this.cType;
-    // console.log(this.cType);
+    if (!this.cType) {
+      this.lrq = 'a'
+    } else {
+      this.lrq = 'o'
+    }
+    // console.log(this.cType, this.lrq);
   }
 
   isValidField(field: string): boolean | null {
@@ -115,7 +124,7 @@ export class FormPageComponent implements OnInit {
       return;
     }
 
-    // Almacenando datos de los reclamos.
+    // Almacenando los datos del formulario en cada variable
     const claims: ClaimInterface = {
       t_documento: this.myForm.get('t_documento')?.value,
       n_documento: this.myForm.get('n_documento')?.value,
@@ -142,7 +151,7 @@ export class FormPageComponent implements OnInit {
       a_condiciones: this.myForm.get('a_condiciones')?.value,
     }
 
-    // Guardar reclamo
+    // Guarda el reclamo en la base de datos
     this.claimsService.postClaim(claims).subscribe(
       (response) => {
         if (response) {
@@ -156,18 +165,16 @@ export class FormPageComponent implements OnInit {
       }
     )
 
-    // Setea los datos por defecto en el formulario.
-    this.myForm.reset({ t_documento: 'DNI', t_documento_tutor: 'DNI', t_consumo: 'Producto', t_reclamo: 'Queja' });
-
-    if (!this.mEdad) {
-      // Datos para el correo
+    // Estructura del correo
+    if (!this.mEdad && !this.sSend) {
+      // Datos para el correo de mayor de edad
       const data: EmailInterface = {
         from: this.fromMail,
         to: claims.email,
         bcc: this.bbcMail,
-        subject: 'Nuevo reclamo en Alka Corp. SAC',
-        html: `<h2>Su reclamo #${this.stringWithZeros}-${this.year} ha sido registrado.</h2>
-        <p>A continuación te mostramos los detalles de tu reclamo:</p>
+        subject: `Nuev${this.lrq} ${claims.t_reclamo} en ${this.companyName}`,
+        html: `<h2>Su ${claims.t_reclamo} #${this.stringWithZeros}-${this.year} ha sido registrad${this.lrq}.</h2>
+        <p>A continuación te mostramos los detalles de tu ${claims.t_reclamo}:</p>
         <h3>Identificación del Consumidor Reclamante</h3>
         <p><strong>Nombre:</strong> ${claims.nombres}</p>
         <p><strong>Apellidos:</strong> ${claims.apellidos}</p>
@@ -191,20 +198,17 @@ export class FormPageComponent implements OnInit {
       }
 
       // Enviar correo
-      this.sendEmailService.sendMail(data).subscribe(
-        res => {
-          console.log(res);
-        },
-        err => console.error(err))
-    } else {
-      // Datos para el correo
+      this.sendEmail(data);
+
+    } else if (this.mEdad && !this.sSend) {
+      // Datos para el correo de menor de edad
       const data: EmailInterface = {
         from: this.fromMail,
         to: claims.email,
         bcc: this.bbcMail,
-        subject: 'Nuevo reclamo en Alka Corp. SAC',
-        html: `<h2>Su reclamo #${this.stringWithZeros}-${this.year} ha sido registrado.</h2>
-        <p>A continuación te mostramos los detalles de tu reclamo:</p>
+        subject: `Nuev${this.lrq} ${claims.t_reclamo} en ${this.companyName}`,
+        html: `<h2>Su ${claims.t_reclamo} #${this.stringWithZeros}-${this.year} ha sido registrad${this.lrq}.</h2>
+        <p>A continuación te mostramos los detalles de tu ${claims.t_reclamo}:</p>
         <h3>Identificación del Consumidor Reclamante</h3>
         <p><strong>Nombres:</strong> ${claims.nombres}</p>
         <p><strong>Apellidos:</strong> ${claims.apellidos}</p>
@@ -235,17 +239,45 @@ export class FormPageComponent implements OnInit {
       }
 
       // Enviar correo
-      this.sendEmailService.sendMail(data).subscribe(
-        res => {
-          console.log(res);
-        },
-        err => console.error(err))
+      this.sendEmail(data);
+
     }
 
-    // Ocultar mensaje de envío
+    // Ocultar mensajes de envío de correo
     setTimeout(() => {
       this.sSend = false;
       this.eSend = false;
     }, 3500);
+
+    // Setea los datos por defecto en el formulario
+    this.myForm.reset({ t_documento: 'DNI', t_documento_tutor: 'DNI', t_consumo: 'Producto', t_reclamo: 'Queja' });
+  }
+
+  // Función que envía el correo con los datos del formulario
+  sendEmail(data: EmailInterface) {
+    this.sendEmailService.sendMail(data).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => console.error(err))
+  }
+
+  // Google Recaptcha V2
+  public log: string[] = [];
+
+  public addTokenLog(message: string, token: string | null) {
+    this.log.push(`${message}: ${this.formatToken(token)}`);
+  }
+
+  public formatToken(token: string | null) {
+    return token !== null
+      ? `${token.substr(0, 7)}...${token.substr(-7)}`
+      : 'null';
+  }
+
+  public printLog() {
+    return this.log
+      .map((logEntry, index) => `${index + 1}. ${logEntry}`)
+      .join('\n');
   }
 }
