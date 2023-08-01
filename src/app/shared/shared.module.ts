@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 
+// Variables de entorno
+import { environment } from '../../environments/environment';
+
 // Google Recaptcha V2
 import { RecaptchaModule, RecaptchaFormsModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 
 // Constantes
-const RECAPTCHA_V2_KEY = '6LdPsm8nAAAAAPAOzPdXE2qyZqGfwIucr2yn_qw4';
+const RECAPTCHA_V2_KEY = environment.RECAPTCHA_V2_KEY;
 
 @NgModule({
   declarations: [

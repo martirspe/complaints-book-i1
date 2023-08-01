@@ -193,7 +193,7 @@ export class FormPageComponent implements OnInit {
         <p><strong>Detalles:</strong> ${claims.detalle}</p>
         <p><strong>Pedido:</strong> ${claims.pedido}</p>
         <h3>¡Gracias por registrar su reclamo!</h3>
-        <p>El tiempo de respuesta es no mayor a 15 días hábiles. Y este llegrá a la dirección de correo consignada en el reclamo o queja.</p>`,
+        <p>El tiempo de respuesta es no mayor a 15 días hábiles. Y este llegará a la dirección de correo consignada en el reclamo o queja.</p>`,
         attachments: claims.a_adjunto,
       }
 
@@ -234,7 +234,7 @@ export class FormPageComponent implements OnInit {
         <p><strong>Detalles:</strong> ${claims.detalle}</p>
         <p><strong>Pedido:</strong> ${claims.pedido}</p>
         <h3>¡Gracias por registrar su reclamo!</h3>
-        <p>El tiempo de respuesta es no mayor a 15 días hábiles. Y este llegrá a la dirección de correo consignada en el reclamo o queja.</p>`,
+        <p>El tiempo de respuesta es no mayor a 15 días hábiles. Y este llegará a la dirección de correo consignada en el reclamo o queja.</p>`,
         attachments: claims.a_adjunto,
       }
 
